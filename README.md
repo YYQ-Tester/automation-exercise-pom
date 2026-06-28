@@ -9,6 +9,7 @@ Target site: https://automationexercise.com
 - Page Object Model (POM)
 
 ## Project Structure
+```
 automation_exercise_pom/
 │
 ├── pages/
@@ -29,8 +30,10 @@ automation_exercise_pom/
 │   └── test_contact.py
 │
 ├── conftest.py
+├── pytest.ini
 ├── requirements.txt
 └── .gitignore
+```
 
 ## Test Coverage
 - Register / Login / Login failure
@@ -59,4 +62,18 @@ Instead, `fake.date_of_birth()` generates a valid date, then day/month/year are 
 
 ## Key Implementation Notes
 - Cookie consent dialog is handled in `BasePage.goto()` — applied automatically on every page
-- Signup form uses a dictionary to fill multiple fields in !
+- Signup form uses a dictionary to fill multiple fields in one loop
+- Cart list uses CSS prefix selector `tr[id^="product-"]` to match all product rows
+- Product ID is stored before deletion, then used to verify the element is no longer visible
+- `uuid` generates unique fake emails; `Faker` provides other signup data
+- Temporary file is created at runtime and passed to the file input — no real file stored in project
+- Dialog event listener is registered with a lambda before the triggering action
+
+## How to Run
+pip install -r requirements.txt
+pytest tests/
+pytest tests/ --headed        # run with browser visible
+pytest tests/ -v              # verbose output
+
+## Author
+Emily
